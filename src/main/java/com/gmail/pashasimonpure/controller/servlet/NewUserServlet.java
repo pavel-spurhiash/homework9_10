@@ -33,11 +33,11 @@ public class NewUserServlet extends HttpServlet {
         String telephone = req.getParameter("telephone");
 
         //pattern validation:
-        if (Pattern.compile(USER_NAME_REGEX).matcher(userName).find() &
-                Pattern.compile(PASSWORD_REGEX).matcher(password).find() &
-                Pattern.compile(AGE_REGEX).matcher(age).find() &
-                Pattern.compile(ADDRESS_REGEX).matcher(address).find() &
-                Pattern.compile(PHONE_NUMBER_REGEX).matcher(telephone).find()) {
+        if (Pattern.compile(USER_NAME_REGEX).matcher(userName).matches() &
+                Pattern.compile(PASSWORD_REGEX).matcher(password).matches() &
+                Pattern.compile(AGE_REGEX).matcher(age).matches() &
+                Pattern.compile(ADDRESS_REGEX).matcher(address).matches() &
+                Pattern.compile(PHONE_NUMBER_REGEX).matcher(telephone).matches()) {
 
             UserDTO user = new UserDTO();
             user.setName(userName);
