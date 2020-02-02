@@ -29,8 +29,7 @@ public class DeleteUserServlet extends HttpServlet {
             if (userService.deleteUser(id)) {
 
                 logger.info("User#" + id + " successfully  deleted.");
-                req.setAttribute("msg", "User#" + id + " successfully deleted.");
-                getServletContext().getRequestDispatcher(PAGE_MESSAGE).forward(req, resp);
+                resp.sendRedirect("users");
 
             } else {
 
