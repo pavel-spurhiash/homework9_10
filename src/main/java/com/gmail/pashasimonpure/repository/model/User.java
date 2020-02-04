@@ -7,6 +7,15 @@ public class User {
     private String password;
     private Integer age;
     private Boolean isActive;
+    private UserInformation useInfo;
+
+    public UserInformation getUseInfo() {
+        return useInfo;
+    }
+
+    public void setUseInfo(UserInformation useInfo) {
+        this.useInfo = useInfo;
+    }
 
     public Long getId() {
         return id;

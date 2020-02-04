@@ -2,6 +2,7 @@ package com.gmail.pashasimonpure.repository.impl;
 
 import com.gmail.pashasimonpure.repository.UserRepository;
 import com.gmail.pashasimonpure.repository.model.User;
+import com.gmail.pashasimonpure.repository.model.UserInformation;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -73,7 +74,8 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public List<User> findAll(Connection connection) throws SQLException {
 
-        String sql = "SELECT id, username, password, is_active, age FROM user";
+        String sql = "SELECT u.id, username, password, age, is_active, ui.telephone, ui.address " +
+                "FROM user u LEFT JOIN user_information ui ON u.id = ui.user_id";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -89,6 +91,12 @@ public class UserRepositoryImpl implements UserRepository {
                     user.setPassword(rs.getString("password"));
                     user.setActive(rs.getBoolean("is_active"));
                     user.setAge(rs.getInt("age"));
+
+                    UserInformation userInfo = new UserInformation();
+                    userInfo.setAddress(rs.getString("address"));
+                    userInfo.setTelephone(rs.getString("telephone"));
+
+                    user.setUseInfo(userInfo);
 
                     users.add(user);
 

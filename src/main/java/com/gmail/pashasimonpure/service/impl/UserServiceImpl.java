@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
 
             instance.drop();
             instance.init();
+
         }
         return instance;
     }
@@ -230,14 +231,6 @@ public class UserServiceImpl implements UserService {
             try {
                 List<UserDTO> usersDTO = new ArrayList<>();
 
-                //get users info map:
-                List<UserInformation> usersInfo = userInformationRepository.findAll(connection);
-                Map<Long, UserInformation> usersInfoMap = new HashMap<>();
-                for (UserInformation userInfo : usersInfo) {
-                    usersInfoMap.put(userInfo.getId(), userInfo);
-                }
-
-                //get users list
                 List<User> users = userRepository.findAll(connection);
 
                 for (User user : users) {
@@ -249,13 +242,8 @@ public class UserServiceImpl implements UserService {
                     userDTO.setAge(user.getAge());
                     userDTO.setName(user.getName());
                     userDTO.setPassword(user.getPassword());
-
-                    if (usersInfoMap.get(user.getId()) != null) {
-
-                        userDTO.setAddress(usersInfoMap.get(user.getId()).getAddress());
-                        userDTO.setTelephone(usersInfoMap.get(user.getId()).getTelephone());
-
-                    }
+                    userDTO.setAddress(user.getUseInfo().getAddress());
+                    userDTO.setTelephone(user.getUseInfo().getTelephone());
 
                     usersDTO.add(userDTO);
                 }

@@ -41,7 +41,8 @@ public class ConnectionRepositoryImpl implements ConnectionRepository {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
+                throw new IllegalArgumentException();
             }
             PropertyUtil propertyUtil = new PropertyUtil();
             HikariConfig config = new HikariConfig();
